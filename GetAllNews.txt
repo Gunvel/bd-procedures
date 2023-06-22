@@ -1,0 +1,18 @@
+-- FUNCTION: public.getallnews()
+
+-- DROP FUNCTION IF EXISTS public.getallnews();
+
+CREATE OR REPLACE FUNCTION public.getallnews(
+	)
+    RETURNS SETOF news 
+    LANGUAGE 'sql'
+    COST 100
+    VOLATILE PARALLEL UNSAFE
+    ROWS 1000
+
+AS $BODY$
+	SELECT * FROM public.news order by id ASC;
+$BODY$;
+
+ALTER FUNCTION public.getallnews()
+    OWNER TO adm;

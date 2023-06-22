@@ -1,0 +1,21 @@
+-- FUNCTION: public.createnews(text, text)
+
+-- DROP FUNCTION IF EXISTS public.createnews(text, text);
+
+CREATE OR REPLACE FUNCTION public.createnews(
+	newtitle text,
+	newsdescr text)
+    RETURNS SETOF integer 
+    LANGUAGE 'sql'
+    COST 100
+    VOLATILE PARALLEL UNSAFE
+    ROWS 1000
+
+AS $BODY$
+	INSERT INTO public.news(
+		title, description, "createdAt")
+		VALUES (newTitle, newsDescr, CURRENT_DATE) RETURNING id;
+$BODY$;
+
+ALTER FUNCTION public.createnews(text, text)
+    OWNER TO adm;

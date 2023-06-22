@@ -1,0 +1,18 @@
+-- FUNCTION: public.getnewsbyid(integer)
+
+-- DROP FUNCTION IF EXISTS public.getnewsbyid(integer);
+
+CREATE OR REPLACE FUNCTION public.getnewsbyid(
+	idnews integer)
+    RETURNS SETOF news 
+    LANGUAGE 'sql'
+    COST 100
+    VOLATILE PARALLEL UNSAFE
+    ROWS 1000
+
+AS $BODY$
+	SELECT * FROM public.news WHERE id = idNews order by id ASC;
+$BODY$;
+
+ALTER FUNCTION public.getnewsbyid(integer)
+    OWNER TO adm;
